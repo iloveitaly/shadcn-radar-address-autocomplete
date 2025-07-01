@@ -70,7 +70,7 @@ const RadarAutocompleteInput = ({
             onAddressSelect(address)
           }
         },
-        onResults: (addresses: RadarAddress[]) => {
+        onResults: (_addresses: RadarAddress[]) => {
           setIsLoading(false)
         },
         onError: (err: Error) => {
