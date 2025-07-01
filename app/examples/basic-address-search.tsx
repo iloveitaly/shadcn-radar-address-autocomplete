@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 
 import { RadarAutocompleteInput } from "@/registry/new-york/radar-autocomplete/radar-autocomplete"
