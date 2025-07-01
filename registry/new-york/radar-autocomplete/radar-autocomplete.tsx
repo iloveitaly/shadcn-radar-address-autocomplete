@@ -1,14 +1,13 @@
 /**
  * @fileoverview A ShadCN-compatible React component that integrates Radar's address autocomplete
  * functionality with consistent styling and error handling.
- * 
+ *
  * @see https://docs.radar.com/maps/autocomplete
  */
 import Radar from "radar-sdk-js"
 import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
-
 import "radar-sdk-js/dist/radar.css"
 import type { RadarAddress } from "radar-sdk-js/dist/types"
 
@@ -27,10 +26,10 @@ interface RadarAutocompleteInputProps {
 
 /**
  * A ShadCN-styled address autocomplete input powered by Radar's geocoding service.
- * 
+ *
  * Provides real-time address suggestions with error handling and loading states.
  * The component automatically initializes the Radar SDK and manages the autocomplete lifecycle.
- * 
+ *
  * @param props - The component props
  * @returns A styled autocomplete input with error and loading states
  */

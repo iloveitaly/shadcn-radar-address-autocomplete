@@ -58,9 +58,12 @@ export default function Home() {
         <div className="p-3 bg-muted rounded-md text-sm">
           <p className="font-medium mb-1">⚠️ API Key Required</p>
           <p className="text-muted-foreground">
-            A public Radar API key is required for the autocomplete to work. 
-            Set the <code className="px-1 py-0.5 bg-background rounded text-xs">VITE_RADAR_API_KEY</code> environment 
-            variable or pass your API key directly to the component.
+            A public Radar API key is required for the autocomplete to work. Set
+            the{" "}
+            <code className="px-1 py-0.5 bg-background rounded text-xs">
+              VITE_RADAR_API_KEY
+            </code>{" "}
+            environment variable or pass your API key directly to the component.
           </p>
         </div>
         <RegistryCommand registryId="radar-autocomplete" />
