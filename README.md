@@ -1,5 +1,5 @@
-# TITLE_OF_COMPONENT
+# ShadCN Radar Address Autocomplete
 
-Short 1-3 sentences description of the component.
+A ShadCN-compatible React component that integrates Radar's powerful address autocomplete functionality with beautiful, accessible UI components. Provides real-time address search and validation with seamless ShadCN styling integration.
 
-Link to GitHub Pages URL for the component. Use `gh repo view` to generate the correct link and display the bare URL.
+https://iloveitaly.github.io/shadcn-radar-address-autocomplete

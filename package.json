@@ -1,14 +1,20 @@
 {
-  "name": "registry-template",
+  "name": "shadcn-radar-address-autocomplete",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "A template for creating a registry of shadcn component registries, without next, and hosting them on GitHub Pages.",
-  "homepage": "https://iloveitaly.github.io/shadcn-registry-template-github-pages",
+  "description": "A ShadCN-compatible React component registry featuring Radar's address autocomplete with beautiful, accessible UI styling integration.",
+  "homepage": "https://iloveitaly.github.io/shadcn-radar-address-autocomplete",
   "keywords": [
     "shadcn",
     "shadcn-ui",
-    "shadcn-registry"
+    "shadcn-registry",
+    "radar",
+    "address-autocomplete",
+    "geocoding",
+    "location-search",
+    "react-component",
+    "typescript"
   ],
   "scripts": {
     "dev": "vite",
@@ -28,6 +34,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.523.0",
+    "radar-sdk-js": "^4.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "shadcn": "2.7.0",
