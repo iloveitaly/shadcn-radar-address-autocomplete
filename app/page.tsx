@@ -2,6 +2,7 @@ import * as React from "react"
 
 import BasicAddressSearchExample from "@/app/examples/basic-address-search"
 import DisabledStateExample from "@/app/examples/disabled-state"
+import { GitHubForkRibbon } from "@/components/github-fork-ribbon"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
 import { RegistryCommand } from "@/components/registry-command"
 import { ShowSourceButton } from "@/components/show-source-button"
@@ -45,7 +46,6 @@ function ComponentDisplay({
 export default function Home() {
   return (
     <>
-      {" "}
       <GitHubForkRibbon />
       <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
         <header className="flex flex-col gap-1 space-y-6 mb-6">
