@@ -14,7 +14,6 @@ import {
 import { MapPin, SearchIcon, X } from "lucide-react"
 
 import { Command, CommandItem, CommandList } from "~/components/ui/command"
-import { log } from "~/configuration/logging"
 import { cn, debounce } from "~/lib/utils"
 import { NO_AUTOFILL_PROPS } from "~/utils/constants"
 import type { RadarAddress } from "radar-sdk-js/dist/types"
@@ -209,10 +208,9 @@ const GeolocationAutocomplete = React.forwardRef<
           dispatch({ type: "START_SEARCH" })
           try {
             const addresses = await resolveAddresses(value, maxResults)
-            log.info("Radar geocode results", { addresses })
             dispatch({ type: "SEARCH_SUCCESS", results: addresses })
           } catch (err) {
-            log.error("Radar geocode error", { err })
+            console.error("Radar geocode error", err)
             dispatch({
               type: "SEARCH_ERROR",
               error: "Could not fetch address suggestions.",
@@ -237,8 +235,6 @@ const GeolocationAutocomplete = React.forwardRef<
     }
 
     const handleSelect = (address: RadarAddress) => {
-      log.info("address selected", { address })
-
       // Clear any pending blur timeout
       if (blurTimeoutRef.current) {
         clearTimeout(blurTimeoutRef.current)
@@ -287,7 +283,6 @@ const GeolocationAutocomplete = React.forwardRef<
 
     const triggerSearch = async () => {
       if (!inputValue) return
-      log.info("Triggering search for", { inputValue })
       dispatch({ type: "START_SEARCH" })
       try {
         const addresses = await resolveAddresses(inputValue, maxResults)
@@ -300,7 +295,7 @@ const GeolocationAutocomplete = React.forwardRef<
           })
         }
       } catch (err) {
-        log.error("Radar manual search error", { err })
+        console.error("Radar manual search error", err)
         dispatch({
           type: "SEARCH_ERROR",
           error: "An error occurred during the search.",
