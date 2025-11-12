@@ -11,7 +11,7 @@ export default function DisabledStateExample() {
     null,
   )
 
-  const handleAddressSelect = (address: RadarAddress) => {
+  const handleAddressSelect = (address: RadarAddress | null) => {
     setSelectedAddress(address)
   }
 

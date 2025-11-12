@@ -13,12 +13,19 @@ import {
 
 import { MapPin, SearchIcon, X } from "lucide-react"
 
-import { log } from "~/configuration/logging"
-import { cn } from "~/lib/utils"
-import { debounce } from "~/lib/utils"
-
-import { Command, CommandItem, CommandList } from "./ui/command"
+import { Command, CommandItem, CommandList } from "~/components/ui/command"
+import { cn, debounce } from "~/lib/utils"
 import type { RadarAddress } from "radar-sdk-js/dist/types"
+
+// 1p and others can improperly detect and autofill form fields, use `{...NO_AUTOFILL_PROPS}` to prevent this
+const NO_AUTOFILL_PROPS = {
+  autoComplete: "off",
+  "data-1p-ignore": true,
+  "data-op-ignore": true,
+  "data-bwignore": true,
+  "data-lpignore": "true",
+  "data-form-type": "other",
+} as const
 
 interface GeolocationAutocompleteProps {
   apiKey: string
@@ -54,9 +61,10 @@ function SearchCommandInput({
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          "placeholder:text-muted-foreground flex h-10 w-full rounded-md border-none bg-transparent px-0 py-3 text-sm shadow-none focus:border-none focus:ring-0 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
+        {...NO_AUTOFILL_PROPS}
         {...props}
       />
     </div>
@@ -140,24 +148,34 @@ const GeolocationAutocomplete = React.forwardRef<
     const [isFocused, setIsFocused] = useState(false)
     const [geolocationSupported, setGeolocationSupported] = useState(true)
 
+    // initialize Radar with the API key, exactly once
     useEffect(() => {
       if (apiKey) {
-        log.info("Radar SDK initializing")
         Radar.initialize(apiKey)
       }
     }, [apiKey])
 
+    // update the input value when the initial value changes
+    // this can happen if the component is re-rendered with a new initial value (from hitting a backend endpoint, for example)
+    useEffect(() => {
+      if (initialValue !== undefined && initialValue !== inputValue) {
+        setInputValue(initialValue || "")
+      }
+    }, [initialValue])
+
+    // focus the input when the autoFocus prop is true
     useEffect(() => {
       if (autoFocus && inputRef.current) {
         inputRef.current.focus()
       }
     }, [autoFocus])
 
+    // check if geolocation is supported by the browser, this conditionally enables the geolocation button
     useEffect(() => {
       setGeolocationSupported(!!navigator.geolocation)
     }, [])
 
-    // Cleanup timeout on unmount
+    // cleanup timeout on unmount
     useEffect(() => {
       return () => {
         if (blurTimeoutRef.current) {
@@ -166,7 +184,7 @@ const GeolocationAutocomplete = React.forwardRef<
       }
     }, [])
 
-    // Keep the latest custom fetch function without destabilizing dependencies
+    // keep the latest custom fetch function without destabilizing dependencies
     useEffect(() => {
       customFetchRef.current = customFetchAddresses
     }, [customFetchAddresses])
@@ -199,10 +217,9 @@ const GeolocationAutocomplete = React.forwardRef<
           dispatch({ type: "START_SEARCH" })
           try {
             const addresses = await resolveAddresses(value, maxResults)
-            log.info("Radar geocode results", { addresses })
             dispatch({ type: "SEARCH_SUCCESS", results: addresses })
           } catch (err) {
-            log.error("Radar geocode error", { err })
+            console.error("Radar geocode error", err)
             dispatch({
               type: "SEARCH_ERROR",
               error: "Could not fetch address suggestions.",
@@ -227,15 +244,13 @@ const GeolocationAutocomplete = React.forwardRef<
     }
 
     const handleSelect = (address: RadarAddress) => {
-      log.info("address selected", { address })
-
       // Clear any pending blur timeout
       if (blurTimeoutRef.current) {
         clearTimeout(blurTimeoutRef.current)
         blurTimeoutRef.current = null
       }
 
-      setInputValue(address.formattedAddress)
+      setInputValue(address.formattedAddress || "")
       onAddressSelect(address)
       closeDropdown()
       dispatch({ type: "CLEAR_RESULTS" })
@@ -277,7 +292,6 @@ const GeolocationAutocomplete = React.forwardRef<
 
     const triggerSearch = async () => {
       if (!inputValue) return
-      log.info("Triggering search for", { inputValue })
       dispatch({ type: "START_SEARCH" })
       try {
         const addresses = await resolveAddresses(inputValue, maxResults)
@@ -290,7 +304,7 @@ const GeolocationAutocomplete = React.forwardRef<
           })
         }
       } catch (err) {
-        log.error("Radar manual search error", { err })
+        console.error("Radar manual search error", err)
         dispatch({
           type: "SEARCH_ERROR",
           error: "An error occurred during the search.",
@@ -335,7 +349,7 @@ const GeolocationAutocomplete = React.forwardRef<
 
         if (addresses.length > 0) {
           const address = addresses[0]
-          setInputValue(address.formattedAddress)
+          setInputValue(address.formattedAddress || "")
           onAddressSelect(address)
           closeDropdown()
           dispatch({ type: "CLEAR_RESULTS" })
@@ -414,7 +428,7 @@ const GeolocationAutocomplete = React.forwardRef<
           {isOpen && (
             <div
               className={cn(
-                "bg-popover text-popover-foreground animate-in fade-in absolute top-full z-10 mt-1 w-full rounded-md border shadow-md duration-200",
+                "bg-popover text-popover-foreground animate-in fade-in absolute top-full z-10 mt-1 w-full border shadow-md duration-200",
               )}
             >
               <CommandList ref={listRef} className="max-h-full">
@@ -455,4 +469,5 @@ const GeolocationAutocomplete = React.forwardRef<
 GeolocationAutocomplete.displayName = "GeolocationAutocomplete"
 
 export { GeolocationAutocomplete }
+export { GeolocationAutocomplete as RadarAutocompleteInput }
 export type { GeolocationAutocompleteHandle }

@@ -8,7 +8,7 @@ export default function BasicAddressSearchExample() {
     null,
   )
 
-  const handleAddressSelect = (address: RadarAddress) => {
+  const handleAddressSelect = (address: RadarAddress | null) => {
     setSelectedAddress(address)
   }
 

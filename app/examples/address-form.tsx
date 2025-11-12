@@ -13,7 +13,7 @@ export default function AddressFormExample() {
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleAddressSelect = (address: RadarAddress) => {
+  const handleAddressSelect = (address: RadarAddress | null) => {
     setFormData((prev) => ({ ...prev, address }))
   }
 
