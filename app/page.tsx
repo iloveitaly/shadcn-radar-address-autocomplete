@@ -1,7 +1,10 @@
 import * as React from "react"
 
 import BasicAddressSearchExample from "@/app/examples/basic-address-search"
+import BasicMapDisplayExample from "@/app/examples/basic-map-display"
 import DisabledStateExample from "@/app/examples/disabled-state"
+import MapWithAutocompleteExample from "@/app/examples/map-with-autocomplete"
+import MultiMarkerMapExample from "@/app/examples/multi-marker-map"
 import { GitHubForkRibbon } from "@/components/github-fork-ribbon"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
 import { RegistryCommand } from "@/components/registry-command"
@@ -74,21 +77,59 @@ export default function Home() {
         </header>
 
         <main className="flex flex-col flex-1 gap-8">
-          <ComponentDisplay
-            name="radar-autocomplete"
-            description="Basic address search with real-time suggestions"
-            filePath="app/examples/basic-address-search.tsx"
-          >
-            <BasicAddressSearchExample />
-          </ComponentDisplay>
+          <section className="space-y-4">
+            <h2 className="text-2xl font-bold tracking-tight">
+              Address Autocomplete Examples
+            </h2>
+            <ComponentDisplay
+              name="radar-autocomplete"
+              description="Basic address search with real-time suggestions"
+              filePath="app/examples/basic-address-search.tsx"
+            >
+              <BasicAddressSearchExample />
+            </ComponentDisplay>
 
-          <ComponentDisplay
-            name="radar-autocomplete"
-            description="Disabled state and conditional enabling"
-            filePath="app/examples/disabled-state.tsx"
-          >
-            <DisabledStateExample />
-          </ComponentDisplay>
+            <ComponentDisplay
+              name="radar-autocomplete"
+              description="Disabled state and conditional enabling"
+              filePath="app/examples/disabled-state.tsx"
+            >
+              <DisabledStateExample />
+            </ComponentDisplay>
+          </section>
+
+          <section className="space-y-4 mt-8">
+            <div className="space-y-2">
+              <h2 className="text-2xl font-bold tracking-tight">
+                Map Display Examples
+              </h2>
+              <RegistryCommand registryId="map-display" />
+            </div>
+
+            <ComponentDisplay
+              name="map-display"
+              description="Basic map display with a single location marker"
+              filePath="app/examples/basic-map-display.tsx"
+            >
+              <BasicMapDisplayExample />
+            </ComponentDisplay>
+
+            <ComponentDisplay
+              name="map-display"
+              description="Map with multiple location markers"
+              filePath="app/examples/multi-marker-map.tsx"
+            >
+              <MultiMarkerMapExample />
+            </ComponentDisplay>
+
+            <ComponentDisplay
+              name="map-display"
+              description="Address search integrated with map display"
+              filePath="app/examples/map-with-autocomplete.tsx"
+            >
+              <MapWithAutocompleteExample />
+            </ComponentDisplay>
+          </section>
         </main>
       </div>
     </>
