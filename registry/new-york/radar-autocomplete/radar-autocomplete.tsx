@@ -15,8 +15,17 @@ import { MapPin, SearchIcon, X } from "lucide-react"
 
 import { Command, CommandItem, CommandList } from "~/components/ui/command"
 import { cn, debounce } from "~/lib/utils"
-import { NO_AUTOFILL_PROPS } from "~/utils/constants"
 import type { RadarAddress } from "radar-sdk-js/dist/types"
+
+// 1p and others can improperly detect and autofill form fields, use `{...NO_AUTOFILL_PROPS}` to prevent this
+const NO_AUTOFILL_PROPS = {
+  autoComplete: "off",
+  "data-1p-ignore": true,
+  "data-op-ignore": true,
+  "data-bwignore": true,
+  "data-lpignore": "true",
+  "data-form-type": "other",
+} as const
 
 interface GeolocationAutocompleteProps {
   apiKey: string
