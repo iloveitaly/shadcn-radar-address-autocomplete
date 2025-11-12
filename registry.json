@@ -15,6 +15,19 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "map-display",
+      "type": "registry:component",
+      "title": "Radar Map Display",
+      "description": "A ShadCN-compatible map component that displays locations with markers using Radar's mapping SDK.",
+      "dependencies": ["radar-sdk-js"],
+      "files": [
+        {
+          "path": "registry/new-york/radar-autocomplete/map-display.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
