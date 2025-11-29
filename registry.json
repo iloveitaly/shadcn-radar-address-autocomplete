@@ -8,7 +8,7 @@
       "type": "registry:component",
       "title": "ShadCN Radar Address Autocomplete",
       "description": "A ShadCN-compatible component that integrates Radar's address autocomplete with beautiful, accessible UI styling.",
-      "dependencies": ["radar-sdk-js"],
+      "dependencies": ["radar-sdk-js", "cmdk", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/radar-autocomplete/radar-autocomplete.tsx",
