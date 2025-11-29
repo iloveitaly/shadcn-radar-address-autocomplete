@@ -1,8 +1,8 @@
 import Radar from "radar-sdk-js"
 import { useEffect, useRef } from "react"
 
-import { cn } from "~/lib/utils"
-import { RADAR_API_KEY } from "~/utils/constants"
+import { cn } from "@/lib/utils"
+import { RADAR_API_KEY } from "@/utils/constants"
 
 import "radar-sdk-js/dist/radar.css"
 

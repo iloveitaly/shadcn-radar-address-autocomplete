@@ -13,8 +13,8 @@ import {
 
 import { MapPin, SearchIcon, X } from "lucide-react"
 
-import { Command, CommandItem, CommandList } from "~/components/ui/command"
-import { cn, debounce } from "~/lib/utils"
+import { Command, CommandItem, CommandList } from "@/components/ui/command"
+import { cn, debounce } from "@/lib/utils"
 import type { RadarAddress } from "radar-sdk-js/dist/types"
 
 // 1p and others can improperly detect and autofill form fields, use `{...NO_AUTOFILL_PROPS}` to prevent this
